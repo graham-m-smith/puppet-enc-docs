@@ -11,19 +11,19 @@ with Diagram("Puppet ENC", show=False):
         apifuncapp = FunctionApps('puppetencapi')
         uiappservice = AppServices('puppetencui')
 
-        mysqldb - [apifuncapp, uiappservice]
+        mysqldb << [apifuncapp, uiappservice]
 
     with Cluster('On-Prem VMware'):
         
         with Cluster('Puppet Server'):
             puppetserver = VM('puppetserver')
-            encprocess = Python('ENC')
-            syncprocess = Python('SYNC')
-            cli = Python('CLI')
-            dyngroups = Python('DYNGROUPS')
+            encprocess = Python('ENC\rscript')
+            syncprocess = Python('SYNC\rcron job')
+            cli = Python('CLI\rscript')
+            dyngroups = Python('DYNGROUPS\rcron job')
             puppetdb = DatabaseForPostgresqlServers('puppetdb')
 
-            puppetserver - encprocess - mysqldb
+            puppetserver - encprocess << mysqldb
             puppetserver - puppetdb >> syncprocess >> mysqldb
             puppetserver - dyngroups >> mysqldb
             puppetserver - cli >> apifuncapp

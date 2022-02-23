@@ -20,11 +20,13 @@ with Diagram("Puppet ENC", show=False):
             encprocess = Python('ENC')
             syncprocess = Python('SYNC')
             cli = Python('CLI')
+            dyngroups = Python('DYNGROUPS')
             puppetdb = DatabaseForPostgresqlServers('puppetdb')
 
             puppetserver - encprocess - mysqldb
             puppetserver - puppetdb >> syncprocess >> mysqldb
-            puppetserver - cli - apifuncapp
+            puppetserver - dyngroups >> mysqldb
+            puppetserver - cli >> apifuncapp
 
         with Cluster('Puppet Clients'):
             puppetclient1 = VM('puppetclient1')

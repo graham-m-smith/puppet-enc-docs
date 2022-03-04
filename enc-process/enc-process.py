@@ -30,6 +30,14 @@ with Diagram("ENC Process", show=False):
     keyvault >> Edge(label='Retrive Secrets', style='bold') >> runbook
     container_reg >> Edge(label='Pull Image') >> config_gen_container
     runbook >> Edge(label='Create CG & Container') >> config_gen_container
+
+    # Main flow from db through container to enc-script to puppet-agent
     mysqldb >> \
         Edge(label='Puppet\rConfig') >> \
-        config_gen_container >> blobstorage >> encprocess >> puppetclient1
+        config_gen_container >> \
+        Edge(label='Create Blobs') >> \
+        blobstorage >> \
+        Edge(label='Pull Comfig\rFrom Blob') >> \
+        encprocess >> \
+        Edge(label='List Of Classes') >> \
+        puppetclient1

@@ -27,7 +27,7 @@ with Diagram("ENC Process", show=False):
 
 
     automation_account >> runbook
-    keyvault >> Edge(label='Retrive Secrets', style='bold') >> runbook
+    keyvault >> Edge(label='Retrieve Secrets') >> runbook
     container_reg >> Edge(label='Pull Image') >> config_gen_container
     runbook >> Edge(label='Create CG & Container') >> config_gen_container
 

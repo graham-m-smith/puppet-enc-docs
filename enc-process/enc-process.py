@@ -37,7 +37,7 @@ with Diagram("ENC Process", show=False):
         config_gen_container >> \
         Edge(label='Create Blobs') >> \
         blobstorage >> \
-        Edge(label='Pull Comfig\rFrom Blob') >> \
+        Edge(label='Pull Config\rFrom Blob') >> \
         encprocess >> \
         Edge(label='List Of Classes') >> \
         puppetclient1
